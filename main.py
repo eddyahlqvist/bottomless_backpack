@@ -1,9 +1,10 @@
 # Python learning project by Edius Ahlqvistus started 2026-10-18
 import random
+import sys
 
 
 def main() -> None:
-    backpack: list[str] = []
+    backpack: list[str] = sys.argv[1:]
 
     while True:
         main_menu()
@@ -107,8 +108,8 @@ def backpack_random(backpack: list[str]) -> None:
             print(f"You pick up {selected_item} from your backpack and throw "
                   f"it violently on the ground before stomping on it. Then you eat it! ")
             continue
-        else:
-            print("Invalid option!")
+
+        print("Invalid option!")
 
 
 def main_menu() -> None:
