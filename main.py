@@ -1,8 +1,9 @@
 # Python learning project by Edius Ahlqvistus started 2026-10-18
+import random
 
 
 def main() -> None:
-    backpack: list[str] = ["Goblin Spectacles"]
+    backpack: list[str] = []
 
     while True:
         main_menu()
@@ -16,6 +17,8 @@ def main() -> None:
                 backpack_add(backpack)
             case "3":
                 backpack_remove(backpack)
+            case "4":
+                backpack_random(backpack)
             case ("q" | "quit"):
                 print("Goodbye!")
                 return
@@ -77,12 +80,44 @@ def backpack_remove(backpack: list[str]) -> None:
             break
 
 
+def backpack_random(backpack: list[str]) -> None:
+    while True:
+        if not backpack:
+            print("You need some items in your backpack first! Returning to main menu. ")
+            return
+
+        print("1: Pick up an item and put it back again. ")
+        print("2: Pick up an item and remove it. ")
+        print("b: Back.")
+
+        choice = input("Choose an option from the menu: ").strip().lower()
+
+        if choice == "b":
+            break
+
+        if choice == "1":
+            selected_item = random.choice(backpack)
+            print(f"You pick up {selected_item} from your backpack and then "
+                  f"carefully put it back again! ")
+            continue
+
+        if choice == "2":
+            random_index = random.randrange(len(backpack))
+            selected_item = backpack.pop(random_index)
+            print(f"You pick up {selected_item} from your backpack and throw "
+                  f"it violently on the ground before stomping on it. Then you eat it! ")
+            continue
+        else:
+            print("Invalid option!")
+
+
 def main_menu() -> None:
     print("\n=== The Bottomless Backpack ===")
     print()
     print("1: View backpack.")
     print("2: Add item to backpack.")
     print("3: Remove item from backpack.")
+    print("4: Random item from backpack.")
     print("q: Quit.")
 
 
