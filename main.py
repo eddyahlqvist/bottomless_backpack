@@ -49,18 +49,32 @@ def backpack_add(backpack: list[str]) -> None:
 
 def backpack_remove(backpack: list[str]) -> None:
     while True:
-        choice = input("\nWhat do you want to remove from your backpack? 'b'(back): ").strip()
-        if not choice:
-            print("\nNothing has been removed. ")
-            continue
+        if not backpack:
+            print("Your backpack contains dust and dirt! Returning to main menu. ")
+            return
+
+        backpack_view(backpack)
+        choice = input("\nEnter the number of the item you want to remove. 'b'(back): ").strip()
+
         if choice in ("b", "B"):
             break
-        if choice not in backpack:
-            print(f"\n{choice} not found in your backpack!")
+
+        try:
+            selected_number = int(choice)
+        except ValueError:
+            print("Use a number from the list.")
             continue
 
-        backpack.remove(choice)
-        print(f"{choice} removed from your backpack!")
+        if 0 < selected_number <= len(backpack):
+            item = backpack.pop(selected_number - 1)
+            print(f"{item} removed from your backpack!")
+        else:
+            print("Use a number from the list.")
+            continue
+
+        if not backpack:
+            print("Your backpack is now empty! Returning to main menu. ")
+            break
 
 
 def main_menu() -> None:
