@@ -29,7 +29,7 @@ def backpack_view(backpack: list[str]) -> None:
               "garbage or rocks you mistook for artifacts.")
         return
 
-    backpack_inventory = "\n".join(f" * {item}" for item in backpack)
+    backpack_inventory = "\n".join(f"{number}. {item}" for number, item in enumerate(backpack, start=1))
 
     print(f"Your backpack contains:\n{backpack_inventory}")
 
