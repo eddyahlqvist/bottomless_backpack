@@ -2,7 +2,7 @@
 
 
 def main() -> None:
-    backpack: list[str] = ["Pigeon Feather", "Goblin Spectacles", "Wooden Truncheon"]
+    backpack: list[str] = ["Goblin Spectacles"]
 
     while True:
         main_menu()
@@ -13,10 +13,10 @@ def main() -> None:
             case "1":
                 backpack_view(backpack)
             case "2":
-                backpack_add()
+                backpack_add(backpack)
             case "3":
-                backpack_remove()
-            case "q":
+                backpack_remove(backpack)
+            case ("q" | "quit"):
                 print("Goodbye!")
                 return
             case _:
@@ -34,12 +34,33 @@ def backpack_view(backpack: list[str]) -> None:
     print(f"Your backpack contains:\n{backpack_inventory}")
 
 
-def backpack_add() -> None:
-    print("Nothing to add at the moment. Work in progress.")
+def backpack_add(backpack: list[str]) -> None:
+    while True:
+        choice = input("\nWhat do you want to add to your backpack? 'b'(back): ").strip()
+        if not choice:
+            print("\nReally funny... Nothing has been added, just as you wanted!")
+            continue
+        if choice in ("b", "B"):
+            break
+
+        backpack.append(choice)
+        print(f"{choice} added to your backpack!")
 
 
-def backpack_remove() -> None:
-    print("Nothing to remove at the moment. Work in progress.")
+def backpack_remove(backpack: list[str]) -> None:
+    while True:
+        choice = input("\nWhat do you want to remove from your backpack? 'b'(back): ").strip()
+        if not choice:
+            print("\nNothing has been removed. ")
+            continue
+        if choice in ("b", "B"):
+            break
+        if choice not in backpack:
+            print(f"\n{choice} not found in your backpack!")
+            continue
+
+        backpack.remove(choice)
+        print(f"{choice} removed from your backpack!")
 
 
 def main_menu() -> None:
